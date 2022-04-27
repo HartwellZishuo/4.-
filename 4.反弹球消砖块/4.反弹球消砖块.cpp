@@ -7,6 +7,9 @@
 int ball_x, ball_y;
 int ball_vx, ball_vy;
 int radius;
+int bar_x, bar_y;
+int bar_high, bar_width;
+int bar_left, bar_right, bar_top, bar_bottom;
 
 void startup()
 {
@@ -15,6 +18,15 @@ void startup()
 	ball_vx = 1;
 	ball_vy = 1;
 	radius = 20;
+
+	bar_high = High / 20;
+	bar_width = Width / 5;
+	bar_x = Width / 2;
+	bar_y = High - bar_high / 2;
+	bar_left = bar_x - bar_width / 2;
+	bar_right = bar_x + bar_width / 2;
+	bar_top = bar_y - bar_high / 2;
+	bar_bottom = bar_y + bar_high / 2;
 	initgraph(Width, High);
 	BeginBatchDraw();
 }
@@ -23,12 +35,14 @@ void clean()
 	setcolor(BLACK);
 	setfillcolor(BLACK);
 	fillcircle(ball_x, ball_y, radius);
+	bar(bar_left, bar_top, bar_right, bar_bottom);
 }
 void show()
 {
 	setcolor(YELLOW);
 	setfillcolor(GREEN);
 	fillcircle(ball_x, ball_y, radius);
+	bar(bar_left, bar_top, bar_right, bar_bottom);
 	FlushBatchDraw();
 	Sleep(3);
 }
