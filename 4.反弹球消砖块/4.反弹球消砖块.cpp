@@ -48,6 +48,10 @@ void show()
 }
 void updateWithoutInput()
 {
+	if (((ball_y + radius >= bar_top) && (ball_y + radius < bar_bottom - bar_high / 3)) || ((ball_y - radius <= bar_bottom) && (ball_y - radius > bar_top - bar_high / 3)))
+		if ((ball_x >= bar_left) && (ball_x <= bar_right))
+			ball_vy = -ball_vy;
+
 	ball_x = ball_x + ball_vx;
 	ball_y = ball_y + ball_vy;
 	if ((ball_x <= radius) || (ball_x >= Width - radius))
@@ -57,7 +61,35 @@ void updateWithoutInput()
 }
 void updateWithInput()
 {
-
+	char input;
+	if (_kbhit())
+	{
+		input = _getch();
+		if (input == 'a' && bar_left > 0)
+		{
+			bar_x = bar_x - 15;
+			bar_left = bar_x - bar_width / 2;
+			bar_right = bar_x + bar_width / 2;
+		}
+		if (input == 'd' && bar_right < Width)
+		{
+			bar_x = bar_x + 15;
+			bar_left = bar_x - bar_width / 2;
+			bar_right = bar_x + bar_width / 2;
+		}
+		if (input == 'w' && bar_top > 0)
+		{
+			bar_y = bar_y - 15;
+			bar_top = bar_y - bar_high / 2;
+			bar_bottom = bar_x + bar_high / 2;
+		}
+		if (input == 's' && bar_bottom < High)
+		{
+			bar_y = bar_y + 15;
+			bar_top = bar_y - bar_high / 2;
+			bar_bottom = bar_y + bar_high / 2;
+		}
+	}
 }
 void gameover()
 {
